@@ -23,9 +23,71 @@
     <!-- Hidden Top Message -->
     <div id="top-message" class="hidden-message">Knew you would say yes! 🎉</div>
 
+    <!-- Romantic Message Modal (Hidden) -->
+    <div id="message-modal" class="hidden">
+        <div class="modal-content">
+            <h2>💖 You’re officially my Valentine.</h2>
+            <p>Every day with you feels special. ❤️</p>
+            <p>I love you more than words can ever explain.</p>
+            <p>You are my partner, my safe place, and my favourite person.</p>
+            <p>Thank you for choosing me, today and every day. 🤍</p>
+            <br>
+            <p>I promise to keep choosing you, loving you, and standing by you, through every laugh, every challenge,
+                and every beautiful moment we share. ✨</p>
+            <br>
+            <p class="highlight">Can’t wait to spend Valentine’s Day with you. 🌸</p>
+        </div>
+    </div>
+
+    <!-- Roadmap Container (Hidden) -->
+    <div id="roadmap-container" class="hidden">
+        <h2 class="roadmap-title">Our Journey Together ✨</h2>
+        <div class="roadmap">
+            <div class="road-line">
+                <div class="walker">🐻</div> <!-- Moving Icon -->
+            </div>
+
+            <!-- Milestones will be revealed by JS or CSS animation -->
+            <div class="milestone" id="milestone-1">
+                <div class="content">
+                    <img src="https://media.tenor.com/gUiu1zyxfzYAAAAi/bear-kiss-bear-kisses.gif" alt="Kissing">
+                    <p>First Kiss 💋</p>
+                </div>
+            </div>
+
+            <div class="milestone right" id="milestone-2">
+                <div class="content">
+                    <img src="assets/couple-gaming.gif" alt="Gaming">
+                    <p>Gaming Together 🎮</p>
+                </div>
+            </div>
+
+            <div class="milestone" id="milestone-3">
+                <div class="content">
+                    <img src="assets/couple-eating.gif" alt="Eating">
+                    <p>Foodie Dates 🍔</p>
+                </div>
+            </div>
+
+            <div class="milestone right" id="milestone-4">
+                <div class="content">
+                    <img src="assets/couple-watching-tv.gif" alt="Movies">
+                    <p>Movie Nights 🍿</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="container">
         <img src="assets/chubby-tonton-please.gif" alt="Cute Bears" id="main-gif">
         <h1 id="question">Will you be my Valentine?</h1>
+
+        <!-- Teaser / Gift Box (Hidden by default) -->
+        <div id="gift-box-container" class="hidden">
+            <div class="gift-box">🎁</div>
+            <p>Hey Babe! Click to see what's inside! 🌝</p>
+        </div>
+
         <div class="buttons">
             <button id="yes-btn">Yes</button>
             <button id="no-btn">No</button>

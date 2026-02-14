@@ -105,7 +105,7 @@ body {
     transition: all 0.3s ease;
 }
 
-.gif-container img {
+img#main-gif {
     max-width: 100%;
     height: auto;
     border-radius: 15px;
@@ -120,6 +120,41 @@ h1 {
     font-size: 2.5rem;
     margin-bottom: 30px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Gift Box Styles */
+#gift-box-container {
+    margin-top: 20px;
+    cursor: pointer;
+    animation: float 3s ease-in-out infinite;
+}
+
+#gift-box-container.hidden {
+    display: none;
+}
+
+.gift-box {
+    font-size: 4rem;
+}
+
+#gift-box-container p {
+    color: #ff4d6d;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
 }
 
 .buttons {
@@ -172,6 +207,211 @@ button {
     font-size: 1.8rem;
 }
 
+/* =========================================
+   Message Modal Styles
+   ========================================= */
+#message-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 222, 233, 0.95);
+    /* High opacity pastel background */
+    z-index: 2000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 1s ease;
+}
+
+#message-modal.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+#message-modal .modal-content {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    text-align: center;
+    border: 2px solid #ff4d6d;
+}
+
+#message-modal h2 {
+    color: #ff4d6d;
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+#message-modal p {
+    font-size: 1.2rem;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+#message-modal .highlight {
+    font-weight: bold;
+    color: #ff4d6d;
+    font-size: 1.3rem;
+    margin-top: 20px;
+}
+
+/* =========================================
+   Roadmap Animation Styles
+   ========================================= */
+#roadmap-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, #fff0f5 0%, #fff 100%);
+    z-index: 1000;
+    overflow-y: auto;
+    /* Scrollable if needed */
+    padding: 40px 20px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 1s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#roadmap-container.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.roadmap-title {
+    color: #ff4d6d;
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.roadmap {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    padding-bottom: 100px;
+}
+
+/* The Vertical Line */
+.road-line {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 6px;
+    height: 100%;
+    background: #ffd1dc;
+    border-radius: 10px;
+}
+
+/* The Moving Walker (Bear/Heart) */
+.walker {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2.5rem;
+    background: white;
+    border-radius: 50%;
+    padding: 5px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    transition: top 8s linear;
+    /* Adjust duration for walking speed */
+}
+
+/* Milestones */
+.milestone {
+    position: relative;
+    width: 45%;
+    margin-bottom: 80px;
+    opacity: 0;
+    /* Hidden initially */
+    transform: translateY(20px);
+    transition: all 0.5s ease;
+}
+
+.milestone:nth-child(even) {
+    left: 0;
+    text-align: right;
+    padding-right: 30px;
+}
+
+.milestone.right,
+.milestone:nth-child(odd) {
+    /* CSS nth-child includes .road-line? No, separate divs. */
+    left: 55%;
+    text-align: left;
+    padding-left: 30px;
+}
+
+/* Fix CSS selection since .road-line is first child of .roadmap */
+.milestone:nth-of-type(odd) {
+    /* 1st, 3rd milestone */
+    left: 0;
+    text-align: right;
+    padding-right: 40px;
+}
+
+.milestone:nth-of-type(even) {
+    /* 2nd, 4th milestone */
+    left: 55%;
+    text-align: left;
+    padding-left: 40px;
+}
+
+
+.milestone.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.milestone .content img {
+    max-width: 100%;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    border: 4px solid white;
+    max-height: 180px;
+    width: auto;
+}
+
+.milestone p {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #ff4d6d;
+    margin-top: 10px;
+}
+
+/* Responsive adjustments for Roadmap */
+@media (max-width: 600px) {
+    .road-line {
+        left: 20px;
+    }
+
+    .walker {
+        left: 20px;
+    }
+
+    .milestone {
+        width: 80%;
+        left: 60px !important;
+        /* Force all to right of line */
+        text-align: left !important;
+        padding: 0 !important;
+    }
+}
+
 /* Responsive adjustments */
 @media (max-width: 600px) {
     h1 {
@@ -193,7 +433,7 @@ button {
         font-size: 1rem;
     }
 
-    .gif-container img {
+    img#main-gif {
         max-height: 200px;
     }
 
@@ -205,4 +445,26 @@ button {
     .loading-content p {
         font-size: 1.2rem;
     }
+}
+
+/* Add styling for the new milestone descriptions */
+.milestone-desc {
+    display: block;
+    font-size: 0.9rem;
+    color: #777;
+    margin-top: 5px;
+    font-style: italic;
+}
+
+/* Update Walker Animation Duration for longer path */
+.walker {
+    /* Existing style... */
+    transition: top 12s linear;
+    /* Increased from 8s to accommodate 6 milestones */
+}
+
+/* Update height of roadmap to fit new items if necessary */
+.roadmap {
+    padding-bottom: 150px;
+    /* Extra padding at bottom */
 }

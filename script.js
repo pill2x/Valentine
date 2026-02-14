@@ -6,6 +6,7 @@ const container = document.querySelector('.container');
 const topMessage = document.getElementById('top-message');
 const loadingScreen = document.getElementById('loading-screen');
 const loadingBtn = document.getElementById('loading-btn');
+const giftBoxContainer = document.getElementById('gift-box-container');
 
 // Hide Loading Screen
 loadingBtn.addEventListener('click', () => {
@@ -38,8 +39,23 @@ const gifs = [
     'assets/tonton-friends-tonton.gif'
 ];
 
+const successGifs = [
+    // 1. Kissing (The immediate reaction)
+    "https://media.tenor.com/gUiu1zyxfzYAAAAi/bear-kiss-bear-kisses.gif",
+    // 2. Gaming together
+    "https://media.tenor.com/SIMPL8yvj4wAAAAi/gaming-couple.gif",
+    // 3. Eating together
+    "https://media.tenor.com/p6XUbfeS6aUAAAAi/mocha-bear-care.gif",
+    // 4. Watching Movie/Cinema
+    "https://media.tenor.com/SG73806w2xIAAAAi/milk-bear-mocha.gif"
+];
+
 // Preload GIFs
 gifs.forEach(src => {
+    const img = new Image();
+    img.src = src;
+});
+successGifs.forEach(src => {
     const img = new Image();
     img.src = src;
 });
@@ -53,11 +69,7 @@ let yesFontSize = 1.2;
 let isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
 // Audio Objects
-// Reliable placeholder for "We Don't Talk Anymore" (Sad Piano or similar)
-// User can replace this URL with the actual song file if they have it.
 const sadAudio = new Audio("audio/Selena_Gomez_-_Lose_You_To_Love_Me_(mp3.pm).mp3");
-
-// Reliable Love Song (I Love You 3000 instrumental commonly used in these repos)
 const successAudio = new Audio("audio/Stephen_Sanchez_-_Until_I_Found_You_slowed_(mp3.pm).mp3");
 
 // "No" Button Click Handler
@@ -143,19 +155,71 @@ yesBtn.addEventListener('click', () => {
     document.querySelector('.buttons').style.display = 'none';
     container.insertBefore(innerMessage, document.querySelector('.buttons'));
 
-    // Change GIF to Couples Game Animation
-    // Keeping the classic kissing one for success as it's the peak "Love" moment
-    // Can switch to local "tonton-friends-tonton.gif" if user prefers local only, 
-    // but the kissing gif is usually the best payoff.
-    mainGif.src = "https://media.tenor.com/gUiu1zyxfzYAAAAi/bear-kiss-bear-kisses.gif";
+    // Set Initial Success GIF (Kissing)
+    mainGif.src = successGifs[0];
 
-    // Play Success Audio ("You are the one I love" / Romantic)
+    // Play Success Audio
     successAudio.volume = 0.6;
     successAudio.play().catch(e => console.log("Audio play blocked:", e));
 
-    // Infinite Confetti
+    // Infinite Confetti (Immediate)
     triggerConfetti();
+
+    // SHOW GIFT BOX AFTER 1 Second (Teaser)
+    setTimeout(() => {
+        giftBoxContainer.classList.remove('hidden');
+    }, 1000);
 });
+
+// Gift Box Click Handler (Trigger New Flow)
+giftBoxContainer.addEventListener('click', () => {
+    // 1. Hide the entire Main Container
+    container.style.display = 'none'; // Or classList.add('hidden') if defined
+    document.getElementById('top-message').style.display = 'none';
+
+    // 2. Show Message Modal
+    const messageModal = document.getElementById('message-modal');
+    messageModal.classList.remove('hidden');
+    // Force reflow
+    void messageModal.offsetWidth;
+    messageModal.classList.add('show');
+
+    // 3. Wait 15 Seconds, then Show Roadmap
+    setTimeout(() => {
+        // Fade out modal
+        messageModal.classList.remove('show');
+        setTimeout(() => {
+            messageModal.style.display = 'none';
+        }, 1000); // Wait for fade out transition
+
+        // Show Roadmap
+        startRoadmapAnimation();
+
+    }, 15000);
+});
+
+function startRoadmapAnimation() {
+    const roadmapContainer = document.getElementById('roadmap-container');
+    roadmapContainer.classList.remove('hidden');
+    void roadmapContainer.offsetWidth;
+    roadmapContainer.classList.add('show');
+
+    // Animate Walker down the path
+    const walker = document.querySelector('.walker');
+    setTimeout(() => {
+        walker.style.top = '90%'; // Move to bottom
+    }, 100);
+
+    // Reveal Milestones sequentially as the walker "passes" them
+    // Total duration is roughly 8s (defined in CSS transition)
+    const milestones = document.querySelectorAll('.milestone');
+
+    milestones.forEach((el, index) => {
+        setTimeout(() => {
+            el.classList.add('visible');
+        }, (index + 1) * 1500); // Reveal one every 1.5 seconds approx
+    });
+}
 
 function triggerConfetti() {
     const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
