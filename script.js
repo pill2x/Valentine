@@ -58,7 +58,7 @@ let isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.
 const sadAudio = new Audio("https://github.com/hoangsonww/valentine-confession/raw/main/assets/music.mp3");
 
 // Reliable Love Song (I Love You 3000 instrumental commonly used in these repos)
-const successAudio = new Audio("https://github.com/hoangsonww/valentine-confession/raw/main/assets/music.mp3");
+const successAudio = new Audio("audio/Stephen_Sanchez_-_Until_I_Found_You_slowed_(mp3.pm).mp3");
 
 // "No" Button Click Handler
 noBtn.addEventListener('click', () => {
