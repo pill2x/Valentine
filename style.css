@@ -1,0 +1,182 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Fredoka', sans-serif;
+    /* Soft pastel pink to white gradient */
+    background: linear-gradient(180deg, #ffdee9 0%, #ffffff 100%);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    /* Stack top message and container */
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    /* Prevent scrolling for the evasion phase */
+    position: relative;
+    /* For floating hearts if added */
+}
+
+/* Hidden Top Message */
+#top-message {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #ff4d6d;
+    margin-bottom: 20px;
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    pointer-events: none;
+    /* Let clicks pass through if invisible */
+    position: absolute;
+    /* Keep it from taking layout space initially? Or let it be absolute to not shift layout */
+    top: 10%;
+    z-index: 20;
+}
+
+#top-message.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.container {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.3);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    position: relative;
+    z-index: 10;
+    max-width: 90%;
+    /* Allow container to grow physically */
+    width: auto;
+    min-width: 320px;
+    transition: all 0.3s ease;
+}
+
+.gif-container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    max-height: 250px;
+    /* Reduced slightly to save space */
+}
+
+h1 {
+    color: #ff4d6d;
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    position: relative;
+    flex-wrap: wrap;
+    /* Safety */
+}
+
+button {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.2rem;
+    padding: 10px 25px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    /* Transition all properties for smooth growth */
+    font-weight: 600;
+}
+
+#yes-btn {
+    background-color: #2ecc71;
+    color: white;
+    box-shadow: 0 4px 6px rgba(46, 204, 113, 0.4);
+    /* No viewport limitation max-width here, handled by logic */
+}
+
+#yes-btn:hover {
+    background-color: #27ae60;
+    /* Remove scale on hover to avoid conflicting with JS font-size growth */
+    filter: brightness(1.1);
+}
+
+#no-btn {
+    background-color: #e74c3c;
+    color: white;
+    box-shadow: 0 4px 6px rgba(231, 76, 60, 0.4);
+    position: relative;
+}
+
+#no-btn:hover {
+    background-color: #c0392b;
+}
+
+/* Success Message Styling (Inner) */
+.success-message {
+    font-weight: bold;
+    color: #ff4d6d;
+    margin-top: 20px;
+    font-size: 1.8rem;
+}
+
+/* Floating Hearts Animation */
+.heart {
+    position: absolute;
+    color: #ff4d6d;
+    font-size: 20px;
+    animation: float 4s ease-in-out infinite;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 5;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0) scale(0.5);
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: translateY(-100px) scale(1.2);
+        opacity: 0;
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    #top-message {
+        font-size: 2rem;
+        top: 5%;
+    }
+
+    .container {
+        padding: 20px;
+        width: 90%;
+    }
+
+    button {
+        padding: 8px 20px;
+        font-size: 1rem;
+    }
+
+    .gif-container img {
+        max-height: 200px;
+    }
+}
