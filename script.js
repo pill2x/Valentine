@@ -184,18 +184,18 @@ giftBoxContainer.addEventListener('click', () => {
     void messageModal.offsetWidth;
     messageModal.classList.add('show');
 
-    // 3. Wait 15 Seconds, then Show Roadmap
+    // 3. Wait 10 Seconds, then Show Roadmap
     setTimeout(() => {
         // Fade out modal
         messageModal.classList.remove('show');
         setTimeout(() => {
             messageModal.style.display = 'none';
-        }, 1000); // Wait for fade out transition
+        }, 8000); // Wait for fade out transition
 
         // Show Roadmap
         startRoadmapAnimation();
 
-    }, 15000);
+    }, 8000);
 });
 
 function startRoadmapAnimation() {

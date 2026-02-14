@@ -450,10 +450,15 @@ button {
 /* Add styling for the new milestone descriptions */
 .milestone-desc {
     display: block;
-    font-size: 0.9rem;
-    color: #777;
-    margin-top: 5px;
+    font-size: 1.1rem;
+    /* Increased size */
+    color: #555;
+    /* Slightly darker for better readability */
+    margin-top: 8px;
     font-style: italic;
+    font-weight: bold;
+    /* Bold text */
+    line-height: 1.4;
 }
 
 /* Update Walker Animation Duration for longer path */
