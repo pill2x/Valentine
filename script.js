@@ -55,7 +55,7 @@ let isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.
 // Audio Objects
 // Reliable placeholder for "We Don't Talk Anymore" (Sad Piano or similar)
 // User can replace this URL with the actual song file if they have it.
-const sadAudio = new Audio("https://github.com/hoangsonww/valentine-confession/raw/main/assets/music.mp3");
+const sadAudio = new Audio("audio/Selena_Gomez_-_Lose_You_To_Love_Me_(mp3.pm).mp3");
 
 // Reliable Love Song (I Love You 3000 instrumental commonly used in these repos)
 const successAudio = new Audio("audio/Stephen_Sanchez_-_Until_I_Found_You_slowed_(mp3.pm).mp3");
