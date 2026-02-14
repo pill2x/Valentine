@@ -4,6 +4,14 @@ const question = document.getElementById('question');
 const mainGif = document.getElementById('main-gif');
 const container = document.querySelector('.container');
 const topMessage = document.getElementById('top-message');
+const loadingScreen = document.getElementById('loading-screen');
+const loadingBtn = document.getElementById('loading-btn');
+
+// Hide Loading Screen
+loadingBtn.addEventListener('click', () => {
+    loadingScreen.classList.add('hidden');
+    // Optional: Play music here if added later to bypass autoplay restrictions?
+});
 
 const phrases = [
     'Are you positive? 🤨',
@@ -15,42 +23,60 @@ const phrases = [
 ];
 
 // GIF Mapping 
-// Using Pinterest/Giphy links which are generally more stable for direct linking
 const gifs = [
-    // 1. Confused
-    'https://media.tenor.com/_S0eZ_MhLzQAAAAi/mochi-peach.gif',
-    // 2. Sad / Pleading
-    'https://media.tenor.com/P4s4Y3dJ5sAAAAAi/mochi-cat-cry.gif',
-    // 3. Very Sad
-    'https://media.tenor.com/bnq4Y3dJ5sAAAAAi/peach-goma-sad.gif',
-    // 4. Crying
-    'https://media.tenor.com/SpO4Y3dJ5sAAAAAi/peach-cat-cry.gif',
-    // 5. Crying Hard
-    'https://media.tenor.com/k6R4Y3dJ5sAAAAAi/peach-goma-crying.gif',
-    // 6. Desperate (Last Chance)
-    'https://media.tenor.com/K2s4Y3dJ5sAAAAAi/bear-sad.gif'
+    // 1. Are you positive? -> Shocked/Seriously?
+    'assets/what-seriously.gif',
+    // 2. Pookie please... -> Sad/Depression
+    'assets/sad-depression.gif',
+    // 3. If you say no... -> Heartbreak (Logical fill)
+    'assets/heartbreak-bear.gif',
+    // 4. Please??? -> Chubby Tonton (Explicit request)
+    'assets/chubby-tonton.gif',
+    // 5. Don't do this... -> Running away/Desperate (Logical fill)
+    'assets/chubby-tonton-go-away.gif',
+    // 6. Last chance! -> Running away (Evasion phase)
+    'assets/tonton-friends-tonton.gif'
 ];
 
-// Preload GIFs to prevent flickering or disappearing
+// Preload GIFs
 gifs.forEach(src => {
     const img = new Image();
     img.src = src;
 });
 
-// Initial State (Smiling/Happy)
-const initialGif = "https://media.tenor.com/f1xnRxTRxLAAAAAj/bears-hugging.gif";
+// Initial State (Begging/Please) - Explicit request
+const initialGif = "assets/chubby-tonton-please.gif";
 mainGif.src = initialGif;
 
 let phraseIndex = 0;
 let yesFontSize = 1.2;
+let isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+// Audio Objects
+// Reliable placeholder for "We Don't Talk Anymore" (Sad Piano or similar)
+// User can replace this URL with the actual song file if they have it.
+const sadAudio = new Audio("https://github.com/hoangsonww/valentine-confession/raw/main/assets/music.mp3");
+
+// Reliable Love Song (I Love You 3000 instrumental commonly used in these repos)
+const successAudio = new Audio("https://github.com/hoangsonww/valentine-confession/raw/main/assets/music.mp3");
 
 // "No" Button Click Handler
 noBtn.addEventListener('click', () => {
-    // 1. Evasion Mode Check (First!)
-    if (noBtn.dataset.evasion === "true") {
+    // 1. Evasion Mode Check (Mobile ONLY)
+    if (isMobile && noBtn.dataset.evasion === "true") {
         moveNoButton();
         return; // Stop here, don't change text/GIF
     }
+
+    // Play Sad Audio (User requested "We don't talk anymore")
+    // Reset success audio if playing
+    successAudio.pause();
+    successAudio.currentTime = 0;
+
+    // Play Sad Audio
+    sadAudio.volume = 0.5;
+    sadAudio.play().catch(e => console.log("Audio play blocked:", e));
+
 
     // 2. Cycle Phrases & GIFs
     if (phraseIndex < phrases.length) {
@@ -67,13 +93,20 @@ noBtn.addEventListener('click', () => {
         yesBtn.style.fontSize = `${yesFontSize}rem`;
     }
 
-    // 3. Check for "Last Chance" to activate evasion for NEXT click
-    // We just displayed phrases[phraseIndex]. If this was the last one, enable evasion.
+    // 3. Check for "Last Chance" to activate evasion
     if (phraseIndex === phrases.length - 1) {
         noBtn.dataset.evasion = "true";
     }
 
     phraseIndex++;
+});
+
+// Evasion Logic for PC (Hover)
+noBtn.addEventListener('mouseover', () => {
+    // On PC (not mobile), evasion happens on hover
+    if (!isMobile && noBtn.dataset.evasion === "true") {
+        moveNoButton();
+    }
 });
 
 function moveNoButton() {
@@ -92,6 +125,10 @@ function moveNoButton() {
 
 // "Yes" Button Click Handler
 yesBtn.addEventListener('click', () => {
+    // Stop Sad Audio
+    sadAudio.pause();
+    sadAudio.currentTime = 0;
+
     // Show Top Message
     topMessage.classList.add('show');
 
@@ -106,8 +143,15 @@ yesBtn.addEventListener('click', () => {
     document.querySelector('.buttons').style.display = 'none';
     container.insertBefore(innerMessage, document.querySelector('.buttons'));
 
-    // Change GIF to Kissing
+    // Change GIF to Couples Game Animation
+    // Keeping the classic kissing one for success as it's the peak "Love" moment
+    // Can switch to local "tonton-friends-tonton.gif" if user prefers local only, 
+    // but the kissing gif is usually the best payoff.
     mainGif.src = "https://media.tenor.com/gUiu1zyxfzYAAAAi/bear-kiss-bear-kisses.gif";
+
+    // Play Success Audio ("You are the one I love" / Romantic)
+    successAudio.volume = 0.6;
+    successAudio.play().catch(e => console.log("Audio play blocked:", e));
 
     // Infinite Confetti
     triggerConfetti();
@@ -128,3 +172,7 @@ function triggerConfetti() {
         confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInOut(0.7, 0.9), y: Math.random() - 0.2 } }));
     }, 250);
 }
+
+window.addEventListener('resize', () => {
+    isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+});
