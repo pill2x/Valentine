@@ -7,13 +7,10 @@ body {
     height: 100vh;
     display: flex;
     flex-direction: column;
-    /* Stack top message and container */
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    /* Prevent scrolling for the evasion phase */
     position: relative;
-    /* For floating hearts if added */
 }
 
 /* Hidden Top Message */
@@ -28,9 +25,7 @@ body {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
     text-align: center;
     pointer-events: none;
-    /* Let clicks pass through if invisible */
     position: absolute;
-    /* Keep it from taking layout space initially? Or let it be absolute to not shift layout */
     top: 10%;
     z-index: 20;
 }
@@ -42,17 +37,17 @@ body {
 
 .container {
     text-align: center;
-    background: rgba(255, 255, 255, 0.3);
+    /* Removed background/box-shadow/border for cleaner look */
+    background: transparent;
     padding: 40px;
-    border-radius: 20px;
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border: none;
+
     position: relative;
     z-index: 10;
     max-width: 90%;
-    /* Allow container to grow physically */
     width: auto;
     min-width: 320px;
     transition: all 0.3s ease;
@@ -64,7 +59,8 @@ body {
     border-radius: 15px;
     margin-bottom: 20px;
     max-height: 250px;
-    /* Reduced slightly to save space */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    /* Slight shadow for the image itself to pop */
 }
 
 h1 {
@@ -81,7 +77,6 @@ h1 {
     gap: 20px;
     position: relative;
     flex-wrap: wrap;
-    /* Safety */
 }
 
 button {
@@ -92,7 +87,6 @@ button {
     border-radius: 50px;
     cursor: pointer;
     transition: all 0.2s ease;
-    /* Transition all properties for smooth growth */
     font-weight: 600;
 }
 
@@ -100,12 +94,10 @@ button {
     background-color: #2ecc71;
     color: white;
     box-shadow: 0 4px 6px rgba(46, 204, 113, 0.4);
-    /* No viewport limitation max-width here, handled by logic */
 }
 
 #yes-btn:hover {
     background-color: #27ae60;
-    /* Remove scale on hover to avoid conflicting with JS font-size growth */
     filter: brightness(1.1);
 }
 
@@ -126,33 +118,6 @@ button {
     color: #ff4d6d;
     margin-top: 20px;
     font-size: 1.8rem;
-}
-
-/* Floating Hearts Animation */
-.heart {
-    position: absolute;
-    color: #ff4d6d;
-    font-size: 20px;
-    animation: float 4s ease-in-out infinite;
-    opacity: 0;
-    pointer-events: none;
-    z-index: 5;
-}
-
-@keyframes float {
-    0% {
-        transform: translateY(0) scale(0.5);
-        opacity: 0;
-    }
-
-    50% {
-        opacity: 0.8;
-    }
-
-    100% {
-        transform: translateY(-100px) scale(1.2);
-        opacity: 0;
-    }
 }
 
 /* Responsive adjustments */

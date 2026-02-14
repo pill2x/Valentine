@@ -15,25 +15,30 @@ const phrases = [
 ];
 
 // GIF Mapping 
-// Using a mix of reliable sources. 
-// Ideally these should be hosted locally or on a stable CDN.
+// Using Pinterest/Giphy links which are generally more stable for direct linking
 const gifs = [
     // 1. Confused
-    'https://media1.tenor.com/m/_S0eZ_MhLzQAAAAC/mochi-peach.gif',
+    'https://media.tenor.com/_S0eZ_MhLzQAAAAi/mochi-peach.gif',
     // 2. Sad / Pleading
-    'https://media1.tenor.com/m/P4s4Y3dJ5sAAAAAC/mochi-cat-cry.gif',
+    'https://media.tenor.com/P4s4Y3dJ5sAAAAAi/mochi-cat-cry.gif',
     // 3. Very Sad
-    'https://media1.tenor.com/m/bnq4Y3dJ5sAAAAAC/peach-goma-sad.gif',
+    'https://media.tenor.com/bnq4Y3dJ5sAAAAAi/peach-goma-sad.gif',
     // 4. Crying
-    'https://media1.tenor.com/m/SpO4Y3dJ5sAAAAAC/peach-cat-cry.gif',
+    'https://media.tenor.com/SpO4Y3dJ5sAAAAAi/peach-cat-cry.gif',
     // 5. Crying Hard
-    'https://media1.tenor.com/m/k6R4Y3dJ5sAAAAAC/peach-goma-crying.gif',
-    // 6. Desperate
-    'https://media1.tenor.com/m/K2s4Y3dJ5sAAAAAC/bear-sad.gif'
+    'https://media.tenor.com/k6R4Y3dJ5sAAAAAi/peach-goma-crying.gif',
+    // 6. Desperate (Last Chance)
+    'https://media.tenor.com/K2s4Y3dJ5sAAAAAi/bear-sad.gif'
 ];
 
+// Preload GIFs to prevent flickering or disappearing
+gifs.forEach(src => {
+    const img = new Image();
+    img.src = src;
+});
+
 // Initial State (Smiling/Happy)
-const initialGif = "https://media1.tenor.com/m/f1xnRxTRxLAAAAAC/bears-hugging.gif";
+const initialGif = "https://media.tenor.com/f1xnRxTRxLAAAAAj/bears-hugging.gif";
 mainGif.src = initialGif;
 
 let phraseIndex = 0;
@@ -55,9 +60,6 @@ noBtn.addEventListener('click', () => {
         // Update GIF
         if (gifs[phraseIndex]) {
             mainGif.src = gifs[phraseIndex];
-        } else {
-            // Fallback if index out of bounds
-            mainGif.src = gifs[gifs.length - 1];
         }
 
         // Update "Yes" Button Size (Massive Growth)
@@ -105,7 +107,7 @@ yesBtn.addEventListener('click', () => {
     container.insertBefore(innerMessage, document.querySelector('.buttons'));
 
     // Change GIF to Kissing
-    mainGif.src = "https://media1.tenor.com/m/gUiu1zyxfzYAAAAC/bear-kiss-bear-kisses.gif";
+    mainGif.src = "https://media.tenor.com/gUiu1zyxfzYAAAAi/bear-kiss-bear-kisses.gif";
 
     // Infinite Confetti
     triggerConfetti();
