@@ -445,6 +445,32 @@ button {
     .loading-content p {
         font-size: 1.2rem;
     }
+
+    /* Modal Responsive Styles */
+    #message-modal .modal-content {
+        padding: 25px;
+        /* Reduced padding */
+        width: 85%;
+        /* Fluid width */
+        max-height: 80vh;
+        /* Prevent overflow vertically */
+        overflow-y: auto;
+        /* Enable scrolling if needed */
+        margin: 0 auto;
+        /* Center it */
+    }
+
+    #message-modal h2 {
+        font-size: 1.6rem;
+        /* Smaller heading */
+        margin-bottom: 15px;
+    }
+
+    #message-modal p {
+        font-size: 1rem;
+        /* Smaller text */
+        line-height: 1.4;
+    }
 }
 
 /* Add styling for the new milestone descriptions */
